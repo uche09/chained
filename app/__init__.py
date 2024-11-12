@@ -12,7 +12,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from app.routes.main import main
-    app.register_blueprint(main)
+    from app.routes import main, signup
+    app.register_blueprint(main.main)
+    app.register_blueprint(signup.signup, url_prefix="/auth")
 
     return app

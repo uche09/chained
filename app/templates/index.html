@@ -1,104 +1,79 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-    <link rel="stylesheet" href="../static/css/styles.css" class="css">
-  </head>
-  <body>
-    <header class="px-2 flex justify-between">
-      <div class="">
-        <h1 class="w-fit gradient font-dongle text-6xl font-extrabold">Chained</h1>
-      </div>
+{% block title %}Home{% endblock %}
 
-      <nav class="font-dongle">
-        <ul class="flex pt-2 text-2xl">
-          <li class="mx-2 w-[4.37rem] text-center ml-0 border border-slate-400 rounded-full px-2 hover:bg-gradient-to-r from-pink-600  to-indigo-500 hover:text-white transition ease-out duration-200"><a href="#">Login</a></li>
-          <li class="mx-2 w-[4.37rem] text-center border border-slate-400 rounded-full px-2 hover:bg-gradient-to-r from-pink-600  to-indigo-500 hover:text-white transition-all ease-out duration-200"><a class="text-nowrap" href="#">Sign up</a></li>
-        </ul>
-      </nav>
-    </header>
+{% block content %}
 
-    <main class="mt-4">
-      <div class="text-center mb-10">
-        <h2 class="gradient w-fit m-auto font-dongle leading-8 text-5xl font-extrabold">Shorten Your <br>Loooong Links :)</h2>
+<div class="text-center mb-10">
+    <h2 class="gradient w-fit m-auto font-dongle leading-8 text-5xl font-extrabold">Shorten Your <br>Loooong Links :)</h2>
 
-        <p class="px-3 mt-3 font-dongle text-2xl leading-6">
-          Chained is an efficient and easy-to-use URL shortening service that streamlines your online experience.
-        </p>
-      </div>
+    <p class="px-3 mt-3 font-dongle text-2xl leading-6">
+      Chained is an efficient and easy-to-use URL shortening service that streamlines your online experience.
+    </p>
+  </div>
 
-      <div class="lg:grid grid-cols-5 gap-x-20">
+  <div class="lg:grid grid-cols-5 gap-x-20">
 
-        <div class="mb-12 col-span-2">
-          <!-- URL input form -->
-          <form class="bg-gray-50 border-2 border-slate-100 flex justify-between rounded-full overflow-hidden h-10 cursor-pointer has-[:focus]:border-none has-[:focus]:ring has-[:focus]:ring-[#3b83f68f] mx-2 mb-7 pl-2 pr-[2px] overflow-visible" action="" >
+    <div class="mb-12 col-span-2">
+      <!-- URL input form -->
+      <form class="bg-gray-50 border-2 border-slate-100 flex justify-between rounded-full overflow-hidden h-10 cursor-pointer has-[:focus]:border-none has-[:focus]:ring has-[:focus]:ring-[#3b83f68f] mx-2 mb-7 pl-2 pr-[2px]" action="" >
 
-            <!-- Link icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mt-2 stroke-gray-500 flex-none">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-            </svg>
+        <!-- Link icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mt-2 stroke-gray-500 flex-none">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+        </svg>
 
-            <input autofocus placeholder="Enter the link here" type="url" name="url" id="url" class=" focus:outline-none bg-inherit grow mx-3 md:placeholder:text-center">
+        <input autofocus placeholder="Enter the link here" type="url" name="url" id="url" class=" focus:outline-none bg-inherit grow mx-3 md:placeholder:text-center">
 
-            <button type="submit" class="flex-none rounded-full w-11 h-9 my-auto bg-[#3b83f6fb]">
+        <button type="submit" class="flex-none rounded-full w-11 h-9 my-auto bg-[#3b83f6fb]">
 
-              <!-- Arrow icon for submit button -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto stroke-white">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-              
-            </button>
-          </form>
-
-          <!-- Auto paste toggle switch -->
-          <label for="auto-paste" class="flex items-center cursor-pointer w-fit mx-auto mb-9">
-
-            <input type="checkbox" id="auto-paste" class="sr-only peer">
+          <!-- Arrow icon for submit button -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto stroke-white">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
           
-            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-blue-500 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 transition-all"></div>
-          
-            <span class="ml-3 text-sm font-medium text-gray-500">Auto Paste from Clipboard</span>
-          
-          </label>
+        </button>
+      </form>
 
-          <!-- TODO: amount of usage left -->
-          
+      <!-- Auto paste toggle switch -->
+      <label for="auto-paste" class="flex items-center cursor-pointer w-fit mx-auto mb-9">
 
-          <p class="w-fit mx-auto">
-            <a href="#" class="font-medium underline">Register Now</a> to enjoy Unlimited usage
-          </p>
-        </div>
+        <input type="checkbox" id="auto-paste" class="sr-only peer">
+      
+        <div class="relative w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-blue-500 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 transition-all"></div>
+      
+        <span class="ml-3 text-sm font-medium text-gray-500">Auto Paste from Clipboard</span>
+      
+      </label>
 
-        <div class="px-1 col-span-3">
-          <h3 class="font-dongle font-bold bg-gray-100 h-12 text-3xl pt-2 ml-1">
-            Shorten Links
-          </h3>
+      <!-- TODO: amount of usage left -->
+      
 
-          <div class="flex">
-            <span>
-
-            </span>
-            
-            <!-- Copy Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-gray-500">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
-            </svg>
-            
-          </div>
-
-          
-        </div>
-
-      </div>
-    </main>
-    
-    <footer class="mt-14 mb-2">
       <p class="w-fit mx-auto">
-        <a href="#" class="underline font-medium">Register Now</a> to enjoy Unlimited History
+        <a href="#" class="font-medium underline">Register Now</a> to enjoy Unlimited usage
       </p>
-    </footer>
-  </body>
-</html>
+    </div>
+
+    <div class="px-1 col-span-3">
+      <h3 class="font-dongle font-bold bg-gray-100 h-12 text-3xl pt-2 ml-1">
+        Shorten Links
+      </h3>
+
+      <div class="flex">
+        <span>
+
+        </span>
+        
+        <!-- Copy Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-gray-500">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+        </svg>
+        
+      </div>
+
+      
+    </div>
+
+  </div>
+
+{% endblock %}
