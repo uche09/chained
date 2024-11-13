@@ -1,3 +1,6 @@
+import string, random
+
+
 def is_secure(password:str)->bool:
     '''
     Verify if a password is secured:
@@ -58,4 +61,22 @@ def is_secure(password:str)->bool:
     
 
 
-is_secure("rEVELATION2001!!!")
+def generate_random_string(length=7):
+    '''
+    generates a string of randomly selecter character-combination (uppercase, lowercase and digits)
+
+    parameter:
+    length (int): length of generated string, (7 characters by default)
+
+    returns:
+    str: a string of randomly selecter character-combination of uppercase letters, lowercase letters and digit
+
+    Raises:
+    TypeError: if length is not int
+    '''
+    characters = string.ascii_letters + string.digits # Getting all lowercase, uppercase, and digits.
+
+
+    # generates the random string by randomly selecting a value from the "characters" set each time for "length" number of times.
+    return ''.join(random.choice(characters) for _ in range(length))
+
