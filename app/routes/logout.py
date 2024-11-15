@@ -7,8 +7,8 @@ logout = Blueprint("logout", __name__)
 
 @logout.route("/logout")
 def end_session():
-    session.pop("username")
-    session.pop("user_id")
+    session.pop("username", None)
+    session.pop("user_id", None)
     
     flash("Logout successfully", "success")
     return redirect("/")
