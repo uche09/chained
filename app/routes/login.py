@@ -32,6 +32,7 @@ def logger():
         # log user in via session
         session["username"] = user.username
         session["user_id"] = user.id
+        session["user_type"] = "registered"
         
         flash("logged in successfully", "success")
         return redirect("/")

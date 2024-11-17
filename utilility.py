@@ -1,4 +1,5 @@
 import string, random
+import uuid
 
 
 def is_secure(password:str)->bool:
@@ -80,3 +81,19 @@ def generate_random_string(length=7):
     # generates the random string by randomly selecting a value from the "characters" set each time for "length" number of times.
     return ''.join(random.choice(characters) for _ in range(length))
 
+
+
+def generate_uniqueID():
+    '''
+    generate a random ID in hex code using the Universal Unique Identifier (UUID) module
+
+    Parameters: None
+
+    Returns:
+     str: unique ID
+
+     Example:
+     print(generate_uniqueID()) -> e71a2d7f76df42e7b91d78c4af1a481c
+    '''
+
+    return uuid.uuid4().hex
