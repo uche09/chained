@@ -83,7 +83,7 @@ def generate_random_string(length=7):
 
 
 
-def generate_uniqueID():
+def generate_uniqueID() -> str:
     '''
     generate a random ID in hex code using the Universal Unique Identifier (UUID) module
 
