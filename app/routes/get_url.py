@@ -5,9 +5,9 @@ from app.models import Link
 
 get_url = Blueprint("get_url", __name__)
 
-@get_url.route("/get_url/<type>", methods=["GET", "POST"])
+@get_url.route("/get_url/<path:type>", defaults={'url': 'list'}, methods=["GET", "POST"])
 
-def fetch_url(type="list"):
+def fetch_url(type:str):
     '''
     Fetches user generated url.
     By default fetches top 10 latest user generated url with parameter set to 'list' by default.
