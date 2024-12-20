@@ -26,7 +26,7 @@ def fetch_url(type="list"):
     
     # lambda to map the items of url_list into the url_for() while other argument remain unchanged
     # The type parameter is an arguement for the main.index() fucntion
-    url_list = list(map(lambda type:url_for("main.index", type, _external=True), url_list))
+    url_list = list(map(lambda url:url_for("main.index", url, _external=True), url_list))
 
 
     return {url_list}
