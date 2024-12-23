@@ -8,61 +8,76 @@ main = Blueprint("main", __name__)
 @main.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-         customize_url = request.form.get("customize") # customise url name
-         origin_url = request.form.get("url") # Destination link
-
-         if customize_url: # if user provides a customize name
+        customize_url = request.form.get("customize") # customise url name
+        origin_url = request.form.get("url") # Destination link
+        
+        
+        if customize_url: # if user provides a customize name
             existing = Link.query.filter_by(short_link=customize_url).first()
-
-
+            
+            
             if existing: # if customize name already exist in database
                  flash("Sorry, customize name has already been taken by another user", "warning")
                  return redirect("/")
-            else:
-                 # If customize name not found in database
-
-                 new_link = Link(user_id=session.get("user_id"), origin_link=origin_url, short_link=customize_url)
-
-                 db.session.add(new_link)
-                 db.session.commit()
-
-                 return redirect("/")
-
-         else:
-             # If user did not provide a customized name, generate unique random string for short url.
-
-             while True:
-                unique_value = generate_random_string()    
-                existing = Link.query.filter_by(short_link=unique_value).first()
-
-                if existing:
-                    continue
-                else:
-                    break
             
-            
-             # If generated string doesn't exist in database
 
-             if not session.get("username") and session.get("user_type") != "registered": # if it's not a registered user
+            # If customize name not found in database
+            new_link = Link(user_id=session.get("user_id"), origin_link=origin_url, short_link=customize_url)
 
-                if not session.get("user_id"): # if anonymous user doesn't already have a user_id
-                    session["user_id"] = f"anon_{generate_uniqueID()}" # generate an anonymous user_id
-                    session["user_type"] = "anonymous"
-                
-                new_link = Link(anon_id=session.get("user_id"), origin_link=origin_url, short_link=unique_value) # Use anonymous id
+            db.session.add(new_link)
+            db.session.commit()
+            flash("Custom short link created successfully", "success")
+            return redirect("/")
+        
+
+        # If user did not provide a customized name, generate unique random string for short url.
+        while True:
+            unique_value = generate_random_string()    
+            existing = Link.query.filter_by(short_link=unique_value).first()
+
+            if not existing:
+                break
             
-             else:
-                 # If it's a registered user
-                 new_link = Link(user_id=session.get("user_id"), origin_link=origin_url, short_link=unique_value) # Use user_id
+        
+        # if it's not a registered user (is an anonymous user)
+        if not session.get("username") and session.get("user_type") != "registered":
+            
+            # probably first time anonymous user
+            if not session.get("user_id"):
+                session["user_id"] = f"anon_{generate_uniqueID()}" # generate an anonymous user_id
+                session["user_type"] = "anonymous"
+            
+            new_link = Link(anon_id=session.get("user_id"), origin_link=origin_url, short_link=unique_value) # Use anonymous id
+            
+        else:
+            # If it's a registered user
+            new_link = Link(user_id=session.get("user_id"), origin_link=origin_url, short_link=unique_value) # Use user_id
 
              
-             # save to database
-             db.session.add(new_link)
-             db.session.commit()
+            # save to database
+            db.session.add(new_link)
+            db.session.commit()
+            flash("Short link created successfully", "success")
+            return redirect("/")
 
-             return redirect("/")
+    elif request.method == "GET":
+        if session.get("username"):
+            return render_template("home.html")
+        else:
+            return render_template("index.html")
 
-    elif session.get("username"):
-        return render_template("home.html")
+
+
+@main.route("/<string:url>", methods=["GET"])
+def redirect_to_link(url:str=""):
+    '''
+    Redirects the user based on the short URL provided.
+    '''
+    
+    link = Link.query.filter_by(short_link=url).first()
+    if link:
+        print(link.origin_link)
+        return redirect(link.origin_link)
     else:
-        return render_template("index.html")
+        flash("This url is not recognized. \nGenerate a url.", "error")
+        return redirect("/")
