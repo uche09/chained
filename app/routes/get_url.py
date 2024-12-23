@@ -1,13 +1,14 @@
-from flask import Blueprint, session, redirect, url_for
+from flask import Blueprint, session, url_for
 from app.models import Link
+from flask import jsonify
 
 
 
 get_url = Blueprint("get_url", __name__)
 
-@get_url.route("/get_url/<path:type>", defaults={'url': 'list'}, methods=["GET", "POST"])
+@get_url.route("/get_url/<string:type>", methods=["GET"])
 
-def fetch_url(type:str):
+def fetch_url(type:str='list'):
     '''
     Fetches user generated url.
     By default fetches top 10 latest user generated url with parameter set to 'list' by default.
@@ -24,9 +25,10 @@ def fetch_url(type:str):
     else:
         url_list = Link.query.filter_by(user_id=session.get("user_id")).limit(fetch).all()
     
-    # lambda to map the items of url_list into the url_for() while other argument remain unchanged
-    # The type parameter is an arguement for the main.index() fucntion
-    url_list = list(map(lambda url:url_for("main.index", url, _external=True), url_list))
+    # Using list comprehension to generate a list of urls for user short links
+    url_list = [
+        url_for("main.redirect_to_link", url=link.short_link, _external=True) for link in url_list
+    ]
 
 
-    return {url_list}
+    return jsonify({"urls": url_list})
