@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
 // function to copy shortend url
 function copyText(uniqueID) {
   const span = document.getElementById(uniqueID);
@@ -88,3 +89,46 @@ function copyText(uniqueID) {
       console.error('Span element not found.');
   }
 }
+
+
+// Handle Auto pasting in home pages
+document.addEventListener("DOMContentLoaded", function () {
+    const inputUrl = document.getElementById("input-url");
+    const autoPasteToggle = document.getElementById("auto-paste");
+
+    // Load toggle state from localStorage
+    const toggleState = localStorage.getItem("autoPasteEnabled");
+    if (toggleState === "true") {
+        autoPasteToggle.checked = true;
+        enableAutoPaste();
+    }
+
+    // Add event listener for toggle changes
+    autoPasteToggle.addEventListener("change", function () {
+        if (autoPasteToggle.checked) {
+            enableAutoPaste();
+            localStorage.setItem("autoPasteEnabled", "true");
+        } else {
+            disableAutoPaste();
+            localStorage.setItem("autoPasteEnabled", "false");
+        }
+    });
+
+    function enableAutoPaste() {
+        // Automatically paste clipboard content if it's a URL
+        navigator.clipboard.readText().then((text) => {
+            const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/i; // Simple URL regex
+            if (urlPattern.test(text.trim())) {
+                inputUrl.value = text.trim();
+            } else {
+                console.warn("Clipboard content is not a valid URL.");
+            }
+    }).catch((err) => {
+        console.error("Failed to read clipboard contents: ", err);
+    });
+    }
+
+    function disableAutoPaste() {
+        console.log("Auto-paste is disabled");
+    }
+});
