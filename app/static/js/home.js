@@ -1,7 +1,7 @@
 // Define async function to fetch and display data
 async function fetch_url(type, loadingElem_id, destElem_id) {
     // Display loading indicator
-    document.getElementById(loadingElem_id).innerHTML = '<img class="size-20" src="../static/img/loading.gif" alt="Loading...">';
+    document.getElementById(loadingElem_id).innerHTML = '<img class="size-12" src="../static/img/loading.gif" alt="Loading...">';
 
     try {
         const response = await fetch(`/get_url/${type}`, {
